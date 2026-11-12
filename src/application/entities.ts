@@ -37,8 +37,12 @@ export async function archiveEntity(id: string): Promise<void> {
   if (!entity) return
 
   const now = new Date().toISOString()
-  await db.entities.update(id, {
-    archivedAt: now,
-    updatedAt: now,
+  await db.transaction('rw', db.entities, db.relations, async () => {
+    await db.entities.update(id, {
+      archivedAt: now,
+      updatedAt: now,
+    })
+    await db.relations.where('fromEntityId').equals(id).delete()
+    await db.relations.where('toEntityId').equals(id).delete()
   })
 }
