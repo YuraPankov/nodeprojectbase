@@ -42,3 +42,5 @@ export async function deleteSection(id:string){
 export async function reorderSections(ids:string[]){
  await db.transaction('rw',db.boards,async()=>{for(let i=0;i<ids.length;i++){const b=await db.boards.get(ids[i]);if(b&&b.sectionKey&&!b.parentBoardId){b.sortOrder=i;b.updatedAt=new Date().toISOString();await db.boards.put(b)}}});
 }
+
+export async function listAllBoardNodes():Promise<BoardNode[]>{return db.boardNodes.toArray()}
