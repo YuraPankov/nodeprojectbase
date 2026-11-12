@@ -55,6 +55,9 @@ export interface Board {
   description: string
   createdAt: string
   updatedAt: string
+  sectionKey?: string
+  parentBoardId?: string
+  parentEntityId?: string
 }
 
 export interface BoardNode {
