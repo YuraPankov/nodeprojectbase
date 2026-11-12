@@ -1,165 +1,29 @@
-import { useEffect, useMemo, useState, type FormEvent } from 'react'
-import { createEntity, listActiveEntities, archiveEntity } from '../application/entities'
-import { createRelation, deleteRelation, listRelations } from '../application/relations'
-import { ENTITY_TYPES, ENTITY_TYPE_LABELS, RELATION_TYPES, RELATION_TYPE_LABELS, type Entity, type EntityType, type Relation, type RelationType } from '../domain/models'
-import { ensureDefaultBoard } from '../infrastructure/database'
+import {useCallback,useEffect,useMemo,useState,type FormEvent} from 'react'
+import ReactFlow,{Background,Controls,MiniMap,Handle,Position,MarkerType,useNodesState,useEdgesState,type Node,type Edge,type Connection} from '@xyflow/react'
+import '@xyflow/react/dist/style.css'
+import {createEntity,listActiveEntities,archiveEntity} from '../application/entities'
+import {createRelation,deleteRelation,listRelations} from '../application/relations'
+import {ENTITY_TYPES,ENTITY_TYPE_LABELS,RELATION_TYPES,RELATION_TYPE_LABELS,type Entity,type EntityType,type Relation,type RelationType,type Board,type BoardNode} from '../domain/models'
+import {addEntityToBoard,createBoard,ensureDefaultBoard,listBoards,listBoardNodes,removeNodeFromBoard,saveNodePosition,CORE_SECTIONS} from '../infrastructure/database'
 import './app.css'
-
-export default function App() {
-  const [entities, setEntities] = useState<Entity[]>([])
-  const [relations, setRelations] = useState<Relation[]>([])
-  const [title, setTitle] = useState('')
-  const [type, setType] = useState<EntityType>('project')
-  const [description, setDescription] = useState('')
-  const [fromEntityId, setFromEntityId] = useState('')
-  const [toEntityId, setToEntityId] = useState('')
-  const [relationType, setRelationType] = useState<RelationType>('related_to')
-  const [search, setSearch] = useState('')
-  const [filterType, setFilterType] = useState<EntityType | 'all'>('all')
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState('')
-  const [relationError, setRelationError] = useState('')
-  const entityById = useMemo(() => new Map(entities.map((entity) => [entity.id, entity])), [entities])
-
-  async function refresh() {
-    const [nextEntities, nextRelations] = await Promise.all([listActiveEntities(), listRelations()])
-    setEntities(nextEntities)
-    setRelations(nextRelations)
-    setFromEntityId((current) => current || nextEntities[0]?.id || '')
-    setToEntityId((current) => current || nextEntities[1]?.id || '')
-  }
-
-  useEffect(() => {
-    async function initialize() {
-      try {
-        await ensureDefaultBoard()
-        await refresh()
-      } catch {
-        setError('Не удалось открыть локальную базу данных.')
-      } finally {
-        setLoading(false)
-      }
-    }
-    void initialize()
-  }, [])
-
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    setError('')
-    try {
-      await createEntity({ title, type, description })
-      setTitle('')
-      setDescription('')
-      await refresh()
-    } catch (cause) {
-      setError(cause instanceof Error ? cause.message : 'Не удалось создать объект.')
-    }
-  }
-
-  async function handleRelationSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    setRelationError('')
-    try {
-      await createRelation({ fromEntityId, toEntityId, type: relationType })
-      await refresh()
-    } catch (cause) {
-      setRelationError(cause instanceof Error ? cause.message : 'Не удалось создать связь.')
-    }
-  }
-
-  async function handleArchive(id: string) {
-    if (!window.confirm('Переместить объект в архив? Его связи также будут удалены.')) return
-    await archiveEntity(id)
-    await refresh()
-  }
-
-  async function handleDeleteRelation(id: string) {
-    await deleteRelation(id)
-    await refresh()
-  }
-
-  const visibleEntities = entities.filter((entity) => {
-    const matchesType = filterType === 'all' || entity.type === filterType
-    const query = search.trim().toLocaleLowerCase()
-    const matchesSearch = !query || entity.title.toLocaleLowerCase().includes(query) || entity.description.toLocaleLowerCase().includes(query)
-    return matchesType && matchesSearch
-  })
-
-  return (
-    <main className="shell">
-      <header className="topbar">
-        <a className="brand" href="/" aria-label="Nodebase home"><span className="brand-mark">N</span><span>nodebase</span></a>
-        <span className="topbar-label">PERSONAL KNOWLEDGE & PROJECT OS</span>
-        <span className="local-status"><i /> LOCAL DATABASE</span>
-      </header>
-
-      <section className="intro">
-        <p className="eyebrow">YOUR SECOND BRAIN, STRUCTURED</p>
-        <h1>Всё связано.<br /><span>Ничего не теряется.</span></h1>
-        <p className="intro-copy">Единое пространство для проектов, людей, идей и знаний.</p>
-      </section>
-
-      <section className="workspace">
-        <div className="section-heading">
-          <div><p className="eyebrow">WORKSPACE / 001</p><h2>Моя база</h2></div>
-          <span className="count">{entities.length.toString().padStart(2, '0')} OBJECTS · {relations.length.toString().padStart(2, '0')} LINKS</span>
-        </div>
-
-        <form className="create-panel" onSubmit={handleSubmit}>
-          <div className="panel-title"><span className="plus">+</span><div><strong>Новый объект</strong><small>Добавьте элемент в свою базу</small></div></div>
-          <div className="form-grid">
-            <label className="field title-field"><span>Название</span><input value={title} onChange={(event) => setTitle(event.target.value)} placeholder="Например, Guchigengovo" required /></label>
-            <label className="field"><span>Тип объекта</span><select value={type} onChange={(event) => setType(event.target.value as EntityType)}>{ENTITY_TYPES.map((item) => <option key={item} value={item}>{ENTITY_TYPE_LABELS[item]}</option>)}</select></label>
-          </div>
-          <label className="field description-field"><span>Описание <em>необязательно</em></span><input value={description} onChange={(event) => setDescription(event.target.value)} placeholder="Краткий контекст или заметка" /></label>
-          {error && <p className="error">{error}</p>}
-          <div className="form-footer"><span>Данные сохраняются в этом браузере</span><button type="submit">Создать объект <b>↗</b></button></div>
-        </form>
-
-        <div className="list-heading"><h3>Объекты базы</h3><span>ПОИСК И ФИЛЬТРАЦИЯ</span></div>
-        <div className="toolbar">
-          <input aria-label="Поиск объектов" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Найти объект или описание..." />
-          <select aria-label="Фильтр по типу" value={filterType} onChange={(event) => setFilterType(event.target.value as EntityType | 'all')}>
-            <option value="all">Все типы</option>{ENTITY_TYPES.map((item) => <option key={item} value={item}>{ENTITY_TYPE_LABELS[item]}</option>)}
-          </select>
-        </div>
-
-        {loading ? <p className="empty-state">Загрузка базы...</p> : visibleEntities.length === 0 ? (
-          <div className="empty-state"><span className="empty-symbol">◇</span><strong>{entities.length ? 'Ничего не найдено' : 'Пока здесь пусто'}</strong><p>{entities.length ? 'Измените поисковый запрос или фильтр.' : 'Создайте первый объект. Позже его можно будет связать с другими и разместить на разных досках.'}</p></div>
-        ) : (
-          <div className="entity-list">
-            {visibleEntities.map((entity) => {
-              const connected = relations.filter((relation) => relation.fromEntityId === entity.id || relation.toEntityId === entity.id)
-              return <article className="entity-card" key={entity.id}>
-                <div className="entity-icon">{ENTITY_TYPE_LABELS[entity.type].slice(0, 1)}</div>
-                <div className="entity-main"><span className="entity-type">{ENTITY_TYPE_LABELS[entity.type]} · {connected.length} СВЯЗЕЙ</span><strong>{entity.title}</strong>{entity.description && <p>{entity.description}</p>}</div>
-                <button className="archive-button" onClick={() => void handleArchive(entity.id)} type="button">В архив</button>
-              </article>
-            })}
-          </div>
-        )}
-
-        <div className="list-heading relation-heading"><h3>Связи между объектами</h3><span>{relations.length.toString().padStart(2, '0')} RELATIONS</span></div>
-        <form className="create-panel relation-panel" onSubmit={handleRelationSubmit}>
-          <div className="panel-title"><span className="plus">↔</span><div><strong>Новая связь</strong><small>Соедините два объекта и укажите характер отношения</small></div></div>
-          <div className="relation-grid">
-            <label className="field"><span>От объекта</span><select value={fromEntityId} onChange={(event) => setFromEntityId(event.target.value)} required><option value="" disabled>Выберите объект</option>{entities.map((entity) => <option key={entity.id} value={entity.id}>{entity.title}</option>)}</select></label>
-            <label className="field"><span>Тип связи</span><select value={relationType} onChange={(event) => setRelationType(event.target.value as RelationType)}>{RELATION_TYPES.map((item) => <option key={item} value={item}>{RELATION_TYPE_LABELS[item]}</option>)}</select></label>
-            <label className="field"><span>К объекту</span><select value={toEntityId} onChange={(event) => setToEntityId(event.target.value)} required><option value="" disabled>Выберите объект</option>{entities.map((entity) => <option key={entity.id} value={entity.id}>{entity.title}</option>)}</select></label>
-          </div>
-          {relationError && <p className="error">{relationError}</p>}
-          <div className="form-footer"><span>Связи сохраняются в локальной базе</span><button type="submit" disabled={entities.length < 2}>Создать связь <b>↗</b></button></div>
-        </form>
-        {relations.length === 0 ? <div className="empty-state relation-empty"><strong>Связей пока нет</strong><p>Добавьте минимум два объекта, чтобы соединить их.</p></div> : (
-          <div className="relation-list">{relations.map((relation) => {
-            const from = entityById.get(relation.fromEntityId)
-            const to = entityById.get(relation.toEntityId)
-            if (!from || !to) return null
-            return <article className="relation-card" key={relation.id}><div className="relation-endpoint"><small>{ENTITY_TYPE_LABELS[from.type]}</small><strong>{from.title}</strong></div><div className="relation-arrow"><span>{RELATION_TYPE_LABELS[relation.type as RelationType] ?? relation.type}</span><b>→</b></div><div className="relation-endpoint"><small>{ENTITY_TYPE_LABELS[to.type]}</small><strong>{to.title}</strong></div><button className="archive-button" type="button" onClick={() => void handleDeleteRelation(relation.id)}>Удалить</button></article>
-          })}</div>
-        )}
-      </section>
-      <footer className="footer"><span>NODEBASE / 0.2.0</span><span>BUILT FOR CONNECTIONS</span></footer>
-    </main>
-  )
-}
+type Data={entity:Entity;onOpen:(e:Entity)=>void}
+function EntityNode({data}:{data:Data}){return <div className="graph-node" onDoubleClick={()=>data.onOpen(data.entity)}><Handle type="target" position={Position.Left}/><small>{ENTITY_TYPE_LABELS[data.entity.type]}</small><strong>{data.entity.title}</strong>{data.entity.description&&<span>{data.entity.description}</span>}<Handle type="source" position={Position.Right}/></div>}
+const nodeTypes={entity:EntityNode}
+export default function App(){
+const [entities,setEntities]=useState<Entity[]>([]),[relations,setRelations]=useState<Relation[]>([]),[boards,setBoards]=useState<Board[]>([]),[active,setActive]=useState<Board|null>(null),[placements,setPlacements]=useState<BoardNode[]>([]),[selected,setSelected]=useState<Entity|null>(null),[trail,setTrail]=useState<Board[]>([])
+const [nodes,setNodes,onNodesChange]=useNodesState<Node<Data>>([]),[edges,setEdges,onEdgesChange]=useEdgesState<Edge[]>([])
+const [showCreate,setShowCreate]=useState(false),[showAdd,setShowAdd]=useState(false),[title,setTitle]=useState(''),[type,setType]=useState<EntityType>('project'),[description,setDescription]=useState(''),[search,setSearch]=useState(''),[view,setView]=useState('graph'),[relType,setRelType]=useState<RelationType>('related_to'),[connection,setConnection]=useState<Connection|null>(null),[error,setError]=useState(''),[loading,setLoading]=useState(true)
+const map=useMemo(()=>new Map(entities.map(e=>[e.id,e])),[entities])
+const reload=useCallback(async()=>{const [e,r,b]=await Promise.all([listActiveEntities(),listRelations(),listBoards()]);setEntities(e);setRelations(r);setBoards(b);return {e,r,b}},[])
+const open=useCallback(async(b:Board,path:Board[])=>{setActive(b);setTrail(path);setSelected(null);const [p,e,r]=await Promise.all([listBoardNodes(b.id),listActiveEntities(),listRelations()]);setPlacements(p);const em=new Map(e.map(x=>[x.id,x]));const ns:Node<Data>[]=p.flatMap(x=>{const ent=em.get(x.entityId);return ent?[{id:x.id,type:'entity',position:{x:x.positionX,y:x.positionY},data:{entity:ent,onOpen:setSelected}}]:[]});setNodes(ns);const ids=new Set(ns.map(n=>n.data.entity.id));setEdges(r.filter(x=>ids.has(x.fromEntityId)&&ids.has(x.toEntityId)).flatMap(x=>{const a=p.find(y=>y.entityId===x.fromEntityId),b2=p.find(y=>y.entityId===x.toEntityId);return a&&b2?[{id:x.id,source:a.id,target:b2.id,label:RELATION_TYPE_LABELS[x.type as RelationType]??x.type,type:'smoothstep',markerEnd:{type:MarkerType.ArrowClosed},style:{stroke:'#a8c66b'},labelStyle:{fill:'#d3dfb6',fontSize:10}}]:[]}))},[setNodes,setEdges])
+useEffect(()=>{(async()=>{try{await ensureDefaultBoard();const {b}=await reload();const first=CORE_SECTIONS.map(s=>b.find(x=>x.sectionKey===s.key)).find(Boolean);if(first)await open(first,[first])}catch{setError('Не удалось открыть локальную базу.')}finally{setLoading(false)}})()},[reload,open])
+const onNodeChanges=useCallback((changes:any[])=>{onNodesChange(changes);changes.forEach(c=>{if(c.type==='position'&&!c.dragging&&c.position)void saveNodePosition(c.id,c.position.x,c.position.y)})},[onNodesChange])
+async function create(event:FormEvent){event.preventDefault();if(!active)return;const e=await createEntity({title,type,description});await addEntityToBoard(active.id,e.id);setTitle('');setDescription('');setShowCreate(false);await reload();await open(active,trail)}
+async function addExisting(id:string){if(!active)return;await addEntityToBoard(active.id,id);await setShowAdd(false);await open(active,trail)}
+async function connect(){if(!connection||!active)return;const a=placements.find(x=>x.id===connection.source),b=placements.find(x=>x.id===connection.target);if(!a||!b)return;try{await createRelation({fromEntityId:a.entityId,toEntityId:b.entityId,type:relType});setConnection(null);await reload();await open(active,trail)}catch(e){setError(e instanceof Error?e.message:'Не удалось создать связь')}}
+async function nested(){if(!selected||!active)return;const b=await createBoard(selected.title,active.id,selected.id);await reload();await open(b,[...trail,b])}
+async function archive(){if(!selected||!active||!confirm('Архивировать объект?'))return;await archiveEntity(selected.id);setSelected(null);await reload();await open(active,trail)}
+const sections=CORE_SECTIONS.map(s=>({s,b:boards.find(x=>x.sectionKey===s.key)})),children=boards.filter(x=>x.parentBoardId===active?.id)
+const available=entities.filter(x=>!placements.some(p=>p.entityId===x.id)&&(x.title+' '+x.description).toLowerCase().includes(search.toLowerCase()))
+const connected=selected?relations.filter(x=>x.fromEntityId===selected.id||x.toEntityId===selected.id):[]
+return <div className="app-frame"><aside className="sidebar"><div className="side-brand"><i>N</i> nodebase</div><p>WORKSPACES / 08</p>{sections.map(({s,b},i)=><button className={active?.sectionKey===s.key?'active':''} key={s.key} onClick={()=>b&&void open(b,[b])}><small>{String(i+1).padStart(2,'0')}</small>{s.title}</button>)}<footer>● LOCAL DATABASE<br/>{entities.length} OBJECTS</footer></aside><main className="main-area"><header><div className="breadcrumbs"><button onClick={()=>{setActive(null);setSelected(null)}}>Workspace</button>{trail.map((x,i)=><span key={x.id}> / <button onClick={()=>void open(x,trail.slice(0,i+1))}>{x.title}</button></span>)}</div><div><button onClick={()=>setShowAdd(true)} disabled={!active}>＋ Добавить существующий</button><button className="primary" onClick={()=>setShowCreate(true)} disabled={!active}>＋ Новый объект</button></div></header><section className="page-heading"><div><small>NODEBASE / PERSONAL OPERATING SYSTEM</small><h1>{active?.title??'Всё связано.'}</h1><p>{active?.description??'Выберите одно из восьми пространств.'}</p></div><aside>{entities.length} OBJECTS　{relations.length} LINKS</aside></section>{!active?<div className="overview-grid">{sections.map(({s,b},i)=><button key={s.key} onClick={()=>b&&void open(b,[b])}><small>0{i+1}</small><strong>{s.title}</strong><span>{s.description}</span><b>Открыть ↗</b></button>)}</div>:<><div className="canvas-toolbar"><div><button className={view==='graph'?'chosen':''} onClick={()=>setView('graph')}>Граф</button><button className={view==='list'?'chosen':''} onClick={()=>setView('list')}>Список</button></div><span>ПЕРЕТАСКИВАЙТЕ БЛОКИ · СОЕДИНЯЙТЕ РУЧКИ</span><button onClick={()=>setShowAdd(true)}>＋ Узел</button></div>{loading?<p>Загрузка…</p>:view==='graph'?<div className="graph-canvas"><ReactFlow nodes={nodes} edges={edges} nodeTypes={nodeTypes} onNodesChange={onNodeChanges} onEdgesChange={onEdgesChange} onConnect={setConnection} fitView><Background color="#343a42" gap={22}/><Controls/><MiniMap/></ReactFlow></div>:<div className="list-view">{placements.map(p=>{const e=map.get(p.entityId);return e?<button key={p.id} onClick={()=>setSelected(e)}>{ENTITY_TYPE_LABELS[e.type]} · {e.title}</button>:null})}</div>}{children.length>0&&<div className="child-boards"><small>ВНУТРЕННИЕ ПРОСТРАНСТВА</small>{children.map(b=><button key={b.id} onClick={()=>void open(b,[...trail,b])}>{b.title} ↗</button>)}</div>}</>}<footer className="main-footer">NODEBASE / LOCAL-FIRST <span>ДАННЫЕ ХРАНЯТСЯ В ЭТОМ БРАУЗЕРЕ</span></footer></main>{selected&&<aside className="inspector"><header><small>OBJECT INSPECTOR</small><button onClick={()=>setSelected(null)}>×</button></header><small>{ENTITY_TYPE_LABELS[selected.type]}</small><h2>{selected.title}</h2><p>{selected.description||'Описание не добавлено.'}</p><button className="primary wide" onClick={()=>void nested()}>Открыть внутреннее пространство ↗</button><h3>Связи · {connected.length}</h3>{connected.map(r=>{const e=map.get(r.fromEntityId===selected.id?r.toEntityId:r.fromEntityId);return e?<div className="inspector-link" key={r.id}><small>{RELATION_TYPE_LABELS[r.type as RelationType]??r.type}</small><b>{e.title}</b><button onClick={async()=>{await deleteRelation(r.id);await reload();if(active)await open(active,trail);setSelected(selected)}}>×</button></div>:null})}<button className="danger" onClick={()=>void archive()}>В архив</button></aside>}{showCreate&&<div className="overlay" onClick={()=>setShowCreate(false)}><form className="modal" onSubmit={create} onClick={e=>e.stopPropagation()}><header><b>Новый объект</b><button type="button" onClick={()=>setShowCreate(false)}>×</button></header><label>Название<input value={title} onChange={e=>setTitle(e.target.value)} required/></label><label>Тип<select value={type} onChange={e=>setType(e.target.value as EntityType)}>{ENTITY_TYPES.map(x=><option key={x} value={x}>{ENTITY_TYPE_LABELS[x]}</option>)}</select></label><label>Описание<textarea value={description} onChange={e=>setDescription(e.target.value)}/></label><button className="primary">Создать</button></form></div>}{showAdd&&<div className="overlay" onClick={()=>setShowAdd(false)}><div className="modal" onClick={e=>e.stopPropagation()}><header><b>Добавить существующий объект</b><button onClick={()=>setShowAdd(false)}>×</button></header><input placeholder="Поиск" value={search} onChange={e=>setSearch(e.target.value)}/><div className="available">{available.map(e=><button key={e.id} onClick={()=>void addExisting(e.id)}>{e.title} · {ENTITY_TYPE_LABELS[e.type]}</button>)}</div></div></div>}{connection&&<div className="overlay"><div className="modal"><header><b>Тип связи</b><button onClick={()=>setConnection(null)}>×</button></header><label>Отношение<select value={relType} onChange={e=>setRelType(e.target.value as RelationType)}>{RELATION_TYPES.map(x=><option key={x} value={x}>{RELATION_TYPE_LABELS[x]}</option>)}</select></label><button className="primary" onClick={()=>void connect()}>Создать связь</button></div></div>}{error&&<button className="toast" onClick={()=>setError('')}>{error} ×</button>}</div>
