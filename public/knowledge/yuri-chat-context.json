@@ -1,0 +1,603 @@
+{
+  "format": "nodebase-knowledge-pack",
+  "schemaVersion": 1,
+  "exportedAt": "2026-11-13T00:00:00.000Z",
+  "source": {
+    "name": "Диалоги Юрия с ChatGPT",
+    "period": "2025–2026",
+    "note": "Черновой импорт пользовательского контекста. Связи и формулировки следует подтвердить в интерфейсе перед использованием как окончательных фактов."
+  },
+  "entities": [
+    {
+      "id": "00000000-0000-4000-8000-000000000001",
+      "type": "person",
+      "title": "Юрий Паньков",
+      "description": "Продюсер артистов, сообществ и мероприятий; звукорежиссёр и исполнительный директор. Развивает ГУЧИГЕНГОВО и собственную систему управления проектами Nodebase.",
+      "properties": {
+        "source": "Диалоги с ChatGPT",
+        "sourceDate": "2025–2026",
+        "confidence": "Высокая",
+        "sections": [
+          "identity",
+          "network"
+        ],
+        "reviewStatus": "needs_review"
+      },
+      "createdAt": "2026-11-13T00:00:00.000Z",
+      "updatedAt": "2026-11-13T00:00:00.000Z",
+      "archivedAt": null
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000002",
+      "type": "organization",
+      "title": "ГУЧИГЕНГОВО",
+      "description": "Творческое объединение и бренд. Важные культурные коды: дружба, доброта, коты, балбесничество, интернет-культура 2000–2010-х, постирония и DIY-эстетика.",
+      "properties": {
+        "source": "Диалоги с ChatGPT",
+        "sourceDate": "2025–2026",
+        "confidence": "Высокая",
+        "sections": [
+          "guchigengovo",
+          "projects"
+        ],
+        "reviewStatus": "needs_review"
+      },
+      "createdAt": "2026-11-13T00:00:00.000Z",
+      "updatedAt": "2026-11-13T00:00:00.000Z",
+      "archivedAt": null
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000003",
+      "type": "person",
+      "title": "Адам",
+      "description": "Главный основатель ГУЧИГЕНГОВО; соосновательская и творческая связь с Юрием.",
+      "properties": {
+        "source": "Диалоги с ChatGPT",
+        "sourceDate": "2025–2026",
+        "confidence": "Высокая",
+        "sections": [
+          "identity",
+          "network"
+        ],
+        "reviewStatus": "needs_review"
+      },
+      "createdAt": "2026-11-13T00:00:00.000Z",
+      "updatedAt": "2026-11-13T00:00:00.000Z",
+      "archivedAt": null
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000004",
+      "type": "artist",
+      "title": "ГГ БАКУГАН",
+      "description": "Артист, которого Юрий добавил в контур ГУЧИГЕНГОВО и VK.",
+      "properties": {
+        "source": "Диалоги с ChatGPT",
+        "sourceDate": "2025–2026",
+        "confidence": "Средняя",
+        "sections": [
+          "production",
+          "guchigengovo"
+        ],
+        "reviewStatus": "needs_review"
+      },
+      "createdAt": "2026-11-13T00:00:00.000Z",
+      "updatedAt": "2026-11-13T00:00:00.000Z",
+      "archivedAt": null
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000005",
+      "type": "organization",
+      "title": "88 Records",
+      "description": "Музыкальная студийная и продюсерская среда, в рамках которой Юрий работал ведущим звукорежиссёром; в истории проекта упоминалась связка с Believe.",
+      "properties": {
+        "source": "Диалоги с ChatGPT",
+        "sourceDate": "2025–2026",
+        "confidence": "Высокая",
+        "sections": [
+          "guchigengovo",
+          "network"
+        ],
+        "reviewStatus": "needs_review"
+      },
+      "createdAt": "2026-11-13T00:00:00.000Z",
+      "updatedAt": "2026-11-13T00:00:00.000Z",
+      "archivedAt": null
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000006",
+      "type": "organization",
+      "title": "88 Север",
+      "description": "Название/этап в истории музыкального объединения до ГУЧИГЕНГОВО.",
+      "properties": {
+        "source": "Диалоги с ChatGPT",
+        "sourceDate": "2025–2026",
+        "confidence": "Средняя",
+        "sections": [
+          "guchigengovo"
+        ],
+        "reviewStatus": "needs_review"
+      },
+      "createdAt": "2026-11-13T00:00:00.000Z",
+      "updatedAt": "2026-11-13T00:00:00.000Z",
+      "archivedAt": null
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000007",
+      "type": "project",
+      "title": "МЕРЧ ГУЧИГЕНГОВО",
+      "description": "Направление мерча: футболки, дропы и предзаказы. Обсуждались экономика тиража, себестоимость, цена и производство под заказ.",
+      "properties": {
+        "source": "Диалоги с ChatGPT",
+        "sourceDate": "2025–2026",
+        "confidence": "Высокая",
+        "sections": [
+          "guchigengovo",
+          "projects"
+        ],
+        "reviewStatus": "needs_review"
+      },
+      "createdAt": "2026-11-13T00:00:00.000Z",
+      "updatedAt": "2026-11-13T00:00:00.000Z",
+      "archivedAt": null
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000008",
+      "type": "idea",
+      "title": "СТУДИЯ ГУЧИГЕНГОВО",
+      "description": "Концепция музыкальной студии с выразительной DIY-визуальной средой: граффити-коты, детские рисунки на стенах и дорожный знак; обсуждалась идея инвестора.",
+      "properties": {
+        "source": "Диалоги с ChatGPT",
+        "sourceDate": "2025–2026",
+        "confidence": "Высокая",
+        "sections": [
+          "guchigengovo",
+          "projects"
+        ],
+        "reviewStatus": "needs_review"
+      },
+      "createdAt": "2026-11-13T00:00:00.000Z",
+      "updatedAt": "2026-11-13T00:00:00.000Z",
+      "archivedAt": null
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000009",
+      "type": "project",
+      "title": "NODEBASE",
+      "description": "Персональная local-first система Юрия для управления знаниями, людьми, артистами, проектами и связями. Текущий продуктовый проект.",
+      "properties": {
+        "source": "Диалоги с ChatGPT",
+        "sourceDate": "2025–2026",
+        "confidence": "Высокая",
+        "sections": [
+          "projects",
+          "resources"
+        ],
+        "reviewStatus": "needs_review"
+      },
+      "createdAt": "2026-11-13T00:00:00.000Z",
+      "updatedAt": "2026-11-13T00:00:00.000Z",
+      "archivedAt": null
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000010",
+      "type": "knowledge",
+      "title": "ПРОДЮСЕР-МЕНТОР",
+      "description": "Предпочитаемая модель продюсирования: создавать безопасное пространство, в котором артист раскрывает собственную идентичность. Роль ближе к визионеру и наставнику, чем к аранжировщику.",
+      "properties": {
+        "source": "Диалоги с ChatGPT",
+        "sourceDate": "2025–2026",
+        "confidence": "Высокая",
+        "sections": [
+          "knowledge"
+        ],
+        "reviewStatus": "needs_review"
+      },
+      "createdAt": "2026-11-13T00:00:00.000Z",
+      "updatedAt": "2026-11-13T00:00:00.000Z",
+      "archivedAt": null
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000011",
+      "type": "person",
+      "title": "Рик Рубин",
+      "description": "Один из главных ориентиров Юрия в модели продюсера-ментора и работе с артистической идентичностью.",
+      "properties": {
+        "source": "Диалоги с ChatGPT",
+        "sourceDate": "2025–2026",
+        "confidence": "Высокая",
+        "sections": [
+          "network",
+          "knowledge"
+        ],
+        "reviewStatus": "needs_review"
+      },
+      "createdAt": "2026-11-13T00:00:00.000Z",
+      "updatedAt": "2026-11-13T00:00:00.000Z",
+      "archivedAt": null
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000012",
+      "type": "person",
+      "title": "Брайан Ино",
+      "description": "Творческий ориентир Юрия в отношении атмосферы, эксперимента и продюсерского мышления.",
+      "properties": {
+        "source": "Диалоги с ChatGPT",
+        "sourceDate": "2025–2026",
+        "confidence": "Высокая",
+        "sections": [
+          "network",
+          "knowledge"
+        ],
+        "reviewStatus": "needs_review"
+      },
+      "createdAt": "2026-11-13T00:00:00.000Z",
+      "updatedAt": "2026-11-13T00:00:00.000Z",
+      "archivedAt": null
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000013",
+      "type": "person",
+      "title": "Дэвид Линч",
+      "description": "Творческий ориентир Юрия в отношении атмосферы, образности и художественного мира.",
+      "properties": {
+        "source": "Диалоги с ChatGPT",
+        "sourceDate": "2025–2026",
+        "confidence": "Высокая",
+        "sections": [
+          "network",
+          "knowledge"
+        ],
+        "reviewStatus": "needs_review"
+      },
+      "createdAt": "2026-11-13T00:00:00.000Z",
+      "updatedAt": "2026-11-13T00:00:00.000Z",
+      "archivedAt": null
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000014",
+      "type": "project",
+      "title": "КОНТЕНТ ГУЧИГЕНГОВО",
+      "description": "Развитие мемного контента и TikTok. Обсуждалась система из четырёх коротких мем-видео в день с постепенным раскрытием визуального образа под музыку ГУЧИГЕНГОВО.",
+      "properties": {
+        "source": "Диалоги с ChatGPT",
+        "sourceDate": "2025–2026",
+        "confidence": "Высокая",
+        "sections": [
+          "guchigengovo",
+          "projects"
+        ],
+        "reviewStatus": "needs_review"
+      },
+      "createdAt": "2026-11-13T00:00:00.000Z",
+      "updatedAt": "2026-11-13T00:00:00.000Z",
+      "archivedAt": null
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000015",
+      "type": "project",
+      "title": "ПРОФЕССИОНАЛЬНОЕ РАЗВИТИЕ В INFLUENCE-МЕНЕДЖМЕНТЕ",
+      "description": "Подготовка резюме и портфолио для позиции Influence-менеджера / менеджера по работе с блогерами в музыкальном лейбле Media Line.",
+      "properties": {
+        "source": "Диалоги с ChatGPT",
+        "sourceDate": "2025–2026",
+        "confidence": "Высокая",
+        "sections": [
+          "projects"
+        ],
+        "reviewStatus": "needs_review"
+      },
+      "createdAt": "2026-11-13T00:00:00.000Z",
+      "updatedAt": "2026-11-13T00:00:00.000Z",
+      "archivedAt": null
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000016",
+      "type": "resource",
+      "title": "FL Studio",
+      "description": "Основная рабочая среда Юрия для музыкального продакшена.",
+      "properties": {
+        "source": "Диалоги с ChatGPT",
+        "sourceDate": "2025–2026",
+        "confidence": "Высокая",
+        "sections": [
+          "resources"
+        ],
+        "reviewStatus": "needs_review"
+      },
+      "createdAt": "2026-11-13T00:00:00.000Z",
+      "updatedAt": "2026-11-13T00:00:00.000Z",
+      "archivedAt": null
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000017",
+      "type": "resource",
+      "title": "REAPER",
+      "description": "Рабочая среда Юрия для звукозаписи и аудиопроизводства.",
+      "properties": {
+        "source": "Диалоги с ChatGPT",
+        "sourceDate": "2025–2026",
+        "confidence": "Высокая",
+        "sections": [
+          "resources"
+        ],
+        "reviewStatus": "needs_review"
+      },
+      "createdAt": "2026-11-13T00:00:00.000Z",
+      "updatedAt": "2026-11-13T00:00:00.000Z",
+      "archivedAt": null
+    },
+    {
+      "id": "00000000-0000-4000-8000-000000000018",
+      "type": "knowledge",
+      "title": "КУЛЬТУРНЫЙ КОД ГУЧИГЕНГОВО",
+      "description": "Коты, дружба, доброта, балбесничество, эстетика 2000–2010-х, CS 1.6, ВАЗ, Adidas, аниме, Jetix/СТС, MTV, Y2K и постирония.",
+      "properties": {
+        "source": "Диалоги с ChatGPT",
+        "sourceDate": "2025–2026",
+        "confidence": "Высокая",
+        "sections": [
+          "knowledge",
+          "guchigengovo"
+        ],
+        "reviewStatus": "needs_review"
+      },
+      "createdAt": "2026-11-13T00:00:00.000Z",
+      "updatedAt": "2026-11-13T00:00:00.000Z",
+      "archivedAt": null
+    }
+  ],
+  "relations": [
+    {
+      "id": "10000000-0000-4000-8000-000000000001",
+      "fromEntityId": "00000000-0000-4000-8000-000000000001",
+      "toEntityId": "00000000-0000-4000-8000-000000000002",
+      "type": "manages",
+      "label": "Юрий — CEO и сооснователь ГУЧИГЕНГОВО",
+      "properties": {
+        "source": "Диалоги с ChatGPT",
+        "confidence": "high",
+        "reviewStatus": "needs_review"
+      },
+      "createdAt": "2026-11-13T00:00:00.000Z",
+      "updatedAt": "2026-11-13T00:00:00.000Z"
+    },
+    {
+      "id": "10000000-0000-4000-8000-000000000002",
+      "fromEntityId": "00000000-0000-4000-8000-000000000003",
+      "toEntityId": "00000000-0000-4000-8000-000000000002",
+      "type": "manages",
+      "label": "Адам — главный основатель ГУЧИГЕНГОВО",
+      "properties": {
+        "source": "Диалоги с ChatGPT",
+        "confidence": "high",
+        "reviewStatus": "needs_review"
+      },
+      "createdAt": "2026-11-13T00:00:00.000Z",
+      "updatedAt": "2026-11-13T00:00:00.000Z"
+    },
+    {
+      "id": "10000000-0000-4000-8000-000000000003",
+      "fromEntityId": "00000000-0000-4000-8000-000000000001",
+      "toEntityId": "00000000-0000-4000-8000-000000000003",
+      "type": "collaborates_with",
+      "label": "Сооснователи и партнёры по объединению",
+      "properties": {
+        "source": "Диалоги с ChatGPT",
+        "confidence": "high",
+        "reviewStatus": "needs_review"
+      },
+      "createdAt": "2026-11-13T00:00:00.000Z",
+      "updatedAt": "2026-11-13T00:00:00.000Z"
+    },
+    {
+      "id": "10000000-0000-4000-8000-000000000004",
+      "fromEntityId": "00000000-0000-4000-8000-000000000001",
+      "toEntityId": "00000000-0000-4000-8000-000000000005",
+      "type": "participates_in",
+      "label": "Работа Юрия как ведущего звукорежиссёра",
+      "properties": {
+        "source": "Диалоги с ChatGPT",
+        "confidence": "high",
+        "reviewStatus": "needs_review"
+      },
+      "createdAt": "2026-11-13T00:00:00.000Z",
+      "updatedAt": "2026-11-13T00:00:00.000Z"
+    },
+    {
+      "id": "10000000-0000-4000-8000-000000000005",
+      "fromEntityId": "00000000-0000-4000-8000-000000000005",
+      "toEntityId": "00000000-0000-4000-8000-000000000006",
+      "type": "related_to",
+      "label": "Упоминались в истории развития объединения",
+      "properties": {
+        "source": "Диалоги с ChatGPT",
+        "confidence": "high",
+        "reviewStatus": "needs_review"
+      },
+      "createdAt": "2026-11-13T00:00:00.000Z",
+      "updatedAt": "2026-11-13T00:00:00.000Z"
+    },
+    {
+      "id": "10000000-0000-4000-8000-000000000006",
+      "fromEntityId": "00000000-0000-4000-8000-000000000001",
+      "toEntityId": "00000000-0000-4000-8000-000000000010",
+      "type": "develops",
+      "label": "Развивает собственную модель продюсера-ментора",
+      "properties": {
+        "source": "Диалоги с ChatGPT",
+        "confidence": "high",
+        "reviewStatus": "needs_review"
+      },
+      "createdAt": "2026-11-13T00:00:00.000Z",
+      "updatedAt": "2026-11-13T00:00:00.000Z"
+    },
+    {
+      "id": "10000000-0000-4000-8000-000000000007",
+      "fromEntityId": "00000000-0000-4000-8000-000000000010",
+      "toEntityId": "00000000-0000-4000-8000-000000000011",
+      "type": "inspired_by",
+      "label": "Один из ключевых ориентиров",
+      "properties": {
+        "source": "Диалоги с ChatGPT",
+        "confidence": "high",
+        "reviewStatus": "needs_review"
+      },
+      "createdAt": "2026-11-13T00:00:00.000Z",
+      "updatedAt": "2026-11-13T00:00:00.000Z"
+    },
+    {
+      "id": "10000000-0000-4000-8000-000000000008",
+      "fromEntityId": "00000000-0000-4000-8000-000000000010",
+      "toEntityId": "00000000-0000-4000-8000-000000000012",
+      "type": "inspired_by",
+      "label": "Творческий ориентир",
+      "properties": {
+        "source": "Диалоги с ChatGPT",
+        "confidence": "high",
+        "reviewStatus": "needs_review"
+      },
+      "createdAt": "2026-11-13T00:00:00.000Z",
+      "updatedAt": "2026-11-13T00:00:00.000Z"
+    },
+    {
+      "id": "10000000-0000-4000-8000-000000000009",
+      "fromEntityId": "00000000-0000-4000-8000-000000000010",
+      "toEntityId": "00000000-0000-4000-8000-000000000013",
+      "type": "inspired_by",
+      "label": "Творческий ориентир",
+      "properties": {
+        "source": "Диалоги с ChatGPT",
+        "confidence": "high",
+        "reviewStatus": "needs_review"
+      },
+      "createdAt": "2026-11-13T00:00:00.000Z",
+      "updatedAt": "2026-11-13T00:00:00.000Z"
+    },
+    {
+      "id": "10000000-0000-4000-8000-000000000010",
+      "fromEntityId": "00000000-0000-4000-8000-000000000002",
+      "toEntityId": "00000000-0000-4000-8000-000000000004",
+      "type": "develops",
+      "label": "Артист в контуре ГУЧИГЕНГОВО",
+      "properties": {
+        "source": "Диалоги с ChatGPT",
+        "confidence": "high",
+        "reviewStatus": "needs_review"
+      },
+      "createdAt": "2026-11-13T00:00:00.000Z",
+      "updatedAt": "2026-11-13T00:00:00.000Z"
+    },
+    {
+      "id": "10000000-0000-4000-8000-000000000011",
+      "fromEntityId": "00000000-0000-4000-8000-000000000002",
+      "toEntityId": "00000000-0000-4000-8000-000000000007",
+      "type": "develops",
+      "label": "Мерч-направление объединения",
+      "properties": {
+        "source": "Диалоги с ChatGPT",
+        "confidence": "high",
+        "reviewStatus": "needs_review"
+      },
+      "createdAt": "2026-11-13T00:00:00.000Z",
+      "updatedAt": "2026-11-13T00:00:00.000Z"
+    },
+    {
+      "id": "10000000-0000-4000-8000-000000000012",
+      "fromEntityId": "00000000-0000-4000-8000-000000000002",
+      "toEntityId": "00000000-0000-4000-8000-000000000008",
+      "type": "develops",
+      "label": "Концепция студийного пространства",
+      "properties": {
+        "source": "Диалоги с ChatGPT",
+        "confidence": "high",
+        "reviewStatus": "needs_review"
+      },
+      "createdAt": "2026-11-13T00:00:00.000Z",
+      "updatedAt": "2026-11-13T00:00:00.000Z"
+    },
+    {
+      "id": "10000000-0000-4000-8000-000000000013",
+      "fromEntityId": "00000000-0000-4000-8000-000000000002",
+      "toEntityId": "00000000-0000-4000-8000-000000000014",
+      "type": "develops",
+      "label": "Контент-направление объединения",
+      "properties": {
+        "source": "Диалоги с ChatGPT",
+        "confidence": "high",
+        "reviewStatus": "needs_review"
+      },
+      "createdAt": "2026-11-13T00:00:00.000Z",
+      "updatedAt": "2026-11-13T00:00:00.000Z"
+    },
+    {
+      "id": "10000000-0000-4000-8000-000000000014",
+      "fromEntityId": "00000000-0000-4000-8000-000000000001",
+      "toEntityId": "00000000-0000-4000-8000-000000000009",
+      "type": "develops",
+      "label": "Юрий развивает Nodebase",
+      "properties": {
+        "source": "Диалоги с ChatGPT",
+        "confidence": "high",
+        "reviewStatus": "needs_review"
+      },
+      "createdAt": "2026-11-13T00:00:00.000Z",
+      "updatedAt": "2026-11-13T00:00:00.000Z"
+    },
+    {
+      "id": "10000000-0000-4000-8000-000000000015",
+      "fromEntityId": "00000000-0000-4000-8000-000000000001",
+      "toEntityId": "00000000-0000-4000-8000-000000000015",
+      "type": "develops",
+      "label": "Подготовка профессионального перехода",
+      "properties": {
+        "source": "Диалоги с ChatGPT",
+        "confidence": "high",
+        "reviewStatus": "needs_review"
+      },
+      "createdAt": "2026-11-13T00:00:00.000Z",
+      "updatedAt": "2026-11-13T00:00:00.000Z"
+    },
+    {
+      "id": "10000000-0000-4000-8000-000000000016",
+      "fromEntityId": "00000000-0000-4000-8000-000000000001",
+      "toEntityId": "00000000-0000-4000-8000-000000000016",
+      "type": "participates_in",
+      "label": "Использует в музыкальном продакшене",
+      "properties": {
+        "source": "Диалоги с ChatGPT",
+        "confidence": "high",
+        "reviewStatus": "needs_review"
+      },
+      "createdAt": "2026-11-13T00:00:00.000Z",
+      "updatedAt": "2026-11-13T00:00:00.000Z"
+    },
+    {
+      "id": "10000000-0000-4000-8000-000000000017",
+      "fromEntityId": "00000000-0000-4000-8000-000000000001",
+      "toEntityId": "00000000-0000-4000-8000-000000000017",
+      "type": "participates_in",
+      "label": "Использует в звукозаписи",
+      "properties": {
+        "source": "Диалоги с ChatGPT",
+        "confidence": "high",
+        "reviewStatus": "needs_review"
+      },
+      "createdAt": "2026-11-13T00:00:00.000Z",
+      "updatedAt": "2026-11-13T00:00:00.000Z"
+    },
+    {
+      "id": "10000000-0000-4000-8000-000000000018",
+      "fromEntityId": "00000000-0000-4000-8000-000000000002",
+      "toEntityId": "00000000-0000-4000-8000-000000000018",
+      "type": "related_to",
+      "label": "Фиксирует культурный код объединения",
+      "properties": {
+        "source": "Диалоги с ChatGPT",
+        "confidence": "high",
+        "reviewStatus": "needs_review"
+      },
+      "createdAt": "2026-11-13T00:00:00.000Z",
+      "updatedAt": "2026-11-13T00:00:00.000Z"
+    }
+  ]
+}
