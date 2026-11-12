@@ -39,7 +39,8 @@ export async function createRelation(input: {
 }
 
 export async function listRelations(): Promise<Relation[]> {
-  return db.relations.orderBy('createdAt').reverse().toArray()
+  const relations = await db.relations.toArray()
+  return relations.sort((a, b) => b.createdAt.localeCompare(a.createdAt))
 }
 
 export async function deleteRelation(id: string): Promise<void> {
