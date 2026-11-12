@@ -297,3 +297,32 @@ button{touch-action:manipulation}
  .database-item-main b{font-size:13px}
  .database-item-main small{font-size:11px;line-height:1.45}
 }
+
+/* ГЛАВНАЯ: ЦЕНТРАЛЬНАЯ КАРТА СВЯЗЕЙ */
+.home-toolbar{display:flex;align-items:end;justify-content:space-between;gap:16px;padding:8px 0 14px}
+.home-toolbar small{font-size:9px;letter-spacing:.15em;color:var(--muted,#929aa5)}
+.home-toolbar h2{margin:6px 0 0;font-size:16px;letter-spacing:.04em}
+.home-toolbar>span{font-size:9px;color:var(--muted,#929aa5);white-space:nowrap}
+.home-graph{height:min(66vh,720px);min-height:460px;width:100%;overflow:hidden;border:1px solid var(--line,#343a42);border-radius:12px;background:var(--panel,#171b20)}
+.home-graph .graph-node.home-map-node{width:118px;min-height:118px;height:118px;padding:12px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:5px;box-shadow:0 8px 26px #0003}
+.home-graph .graph-node.home-map-node strong{font-size:10px;line-height:1.25;overflow-wrap:anywhere}
+.home-graph .graph-node.home-map-node small{font-size:8px;line-height:1.2}
+.home-graph .graph-node.home-map-node span{display:none}
+.home-graph .graph-node.home-root-node{width:150px;height:150px;min-height:150px;border:2px solid var(--accent,#a8c66b);background:var(--panel,#171b20)}
+.home-graph .graph-node.home-root-node strong{font-size:18px;letter-spacing:.08em}
+.home-graph .graph-node.home-root-node small{font-size:9px}
+.home-graph .graph-node.home-map-node .react-flow__handle{width:7px;height:7px;opacity:.7}
+.home-section-shortcuts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:12px}
+.home-section-shortcuts button{display:flex;flex-direction:column;align-items:flex-start;gap:5px;min-width:0;padding:12px;border:1px solid var(--line,#343a42);border-radius:8px;background:var(--panel,#171b20);color:inherit;text-align:left;font-size:10px}
+.home-section-shortcuts button small{font-size:9px;line-height:1.35;color:var(--muted,#929aa5)}
+.delete-relation{width:100%;min-height:38px;margin-top:5px;padding:8px;border:1px solid #9c5555;border-radius:6px;background:transparent;color:#d58b8b;font-size:9px;letter-spacing:.05em}
+@media(max-width:760px){
+ .home-toolbar{align-items:flex-start;flex-direction:column;gap:7px}
+ .home-graph{height:62dvh;min-height:390px;border-radius:9px}
+ .home-section-shortcuts{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+ .home-section-shortcuts button{min-height:65px;padding:10px}
+ .home-graph .graph-node.home-map-node{width:96px;height:96px;min-height:96px;padding:8px}
+ .home-graph .graph-node.home-map-node strong{font-size:9px}
+ .home-graph .graph-node.home-root-node{width:118px;height:118px;min-height:118px}
+ .home-graph .graph-node.home-root-node strong{font-size:15px}
+}
