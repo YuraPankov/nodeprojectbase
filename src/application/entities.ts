@@ -26,18 +26,19 @@ export async function createEntity(input: {
 }
 
 export async function listActiveEntities(): Promise<Entity[]> {
-  return db.entities
+  const entities = await db.entities.toArray()
+  return entities
     .filter((entity) => entity.archivedAt === null)
-    .reverse()
-    .sortBy('updatedAt')
+    .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))
 }
 
 export async function archiveEntity(id: string): Promise<void> {
   const entity = await db.entities.get(id)
   if (!entity) return
 
+  const now = new Date().toISOString()
   await db.entities.update(id, {
-    archivedAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
+    archivedAt: now,
+    updatedAt: now,
   })
 }
