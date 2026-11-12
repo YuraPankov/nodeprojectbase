@@ -58,6 +58,7 @@ export interface Board {
   sectionKey?: string
   parentBoardId?: string
   parentEntityId?: string
+  sortOrder?: number
 }
 
 export interface BoardNode {
