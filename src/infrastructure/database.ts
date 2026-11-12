@@ -22,15 +22,17 @@ export class NodebaseDatabase extends Dexie {
 export const db = new NodebaseDatabase()
 
 export async function ensureDefaultBoard(): Promise<void> {
-  const count = await db.boards.count()
-  if (count > 0) return
+  await db.transaction('rw', db.boards, async () => {
+    const count = await db.boards.count()
+    if (count > 0) return
 
-  const now = new Date().toISOString()
-  await db.boards.add({
-    id: crypto.randomUUID(),
-    title: 'Моя база',
-    description: 'Основное пространство Nodebase',
-    createdAt: now,
-    updatedAt: now,
+    const now = new Date().toISOString()
+    await db.boards.add({
+      id: crypto.randomUUID(),
+      title: 'Моя база',
+      description: 'Основное пространство Nodebase',
+      createdAt: now,
+      updatedAt: now,
+    })
   })
 }
