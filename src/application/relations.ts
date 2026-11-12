@@ -17,11 +17,12 @@ export async function createRelation(input: {
     throw new Error('Один из объектов не найден или находится в архиве')
   }
 
-  const existing = await db.relations
-    .where('[fromEntityId+toEntityId]')
-    .equals([input.fromEntityId, input.toEntityId])
-    .first()
-  if (existing?.type === input.type) throw new Error('Такая связь уже существует')
+  const existing = await db.relations.toArray()
+  if (existing.some((relation) =>
+    relation.fromEntityId === input.fromEntityId &&
+    relation.toEntityId === input.toEntityId &&
+    relation.type === input.type
+  )) throw new Error('Такая связь уже существует')
 
   const now = new Date().toISOString()
   const relation: Relation = {
