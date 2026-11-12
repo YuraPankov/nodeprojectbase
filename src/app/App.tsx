@@ -1,17 +1,17 @@
 import {useCallback,useEffect,useMemo,useState,type FormEvent} from 'react'
-import ReactFlow,{Background,Controls,MiniMap,Handle,Position,MarkerType,useNodesState,useEdgesState,type Node,type Edge,type Connection} from '@xyflow/react'
+import {ReactFlow,Background,Controls,MiniMap,Handle,Position,MarkerType,useNodesState,useEdgesState,type Node,type Edge,type Connection} from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
 import {createEntity,listActiveEntities,archiveEntity} from '../application/entities'
 import {createRelation,deleteRelation,listRelations} from '../application/relations'
 import {ENTITY_TYPES,ENTITY_TYPE_LABELS,RELATION_TYPES,RELATION_TYPE_LABELS,type Entity,type EntityType,type Relation,type RelationType,type Board,type BoardNode} from '../domain/models'
-import {addEntityToBoard,createBoard,ensureDefaultBoard,listBoards,listBoardNodes,removeNodeFromBoard,saveNodePosition,CORE_SECTIONS} from '../infrastructure/database'
+import {addEntityToBoard,createBoard,ensureDefaultBoard,listBoards,listBoardNodes,saveNodePosition,CORE_SECTIONS} from '../infrastructure/database'
 import './app.css'
 type Data={entity:Entity;onOpen:(e:Entity)=>void}
 function EntityNode({data}:{data:Data}){return <div className="graph-node" onDoubleClick={()=>data.onOpen(data.entity)}><Handle type="target" position={Position.Left}/><small>{ENTITY_TYPE_LABELS[data.entity.type]}</small><strong>{data.entity.title}</strong>{data.entity.description&&<span>{data.entity.description}</span>}<Handle type="source" position={Position.Right}/></div>}
 const nodeTypes={entity:EntityNode}
 export default function App(){
 const [entities,setEntities]=useState<Entity[]>([]),[relations,setRelations]=useState<Relation[]>([]),[boards,setBoards]=useState<Board[]>([]),[active,setActive]=useState<Board|null>(null),[placements,setPlacements]=useState<BoardNode[]>([]),[selected,setSelected]=useState<Entity|null>(null),[trail,setTrail]=useState<Board[]>([])
-const [nodes,setNodes,onNodesChange]=useNodesState<Node<Data>>([]),[edges,setEdges,onEdgesChange]=useEdgesState<Edge[]>([])
+const [nodes,setNodes,onNodesChange]=useNodesState<Node<Data>>([]),[edges,setEdges,onEdgesChange]=useEdgesState<Edge>([])
 const [showCreate,setShowCreate]=useState(false),[showAdd,setShowAdd]=useState(false),[title,setTitle]=useState(''),[type,setType]=useState<EntityType>('project'),[description,setDescription]=useState(''),[search,setSearch]=useState(''),[view,setView]=useState('graph'),[relType,setRelType]=useState<RelationType>('related_to'),[connection,setConnection]=useState<Connection|null>(null),[error,setError]=useState(''),[loading,setLoading]=useState(true)
 const map=useMemo(()=>new Map(entities.map(e=>[e.id,e])),[entities])
 const reload=useCallback(async()=>{const [e,r,b]=await Promise.all([listActiveEntities(),listRelations(),listBoards()]);setEntities(e);setRelations(r);setBoards(b);return {e,r,b}},[])
