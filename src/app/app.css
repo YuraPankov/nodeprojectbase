@@ -60,3 +60,20 @@
 .app-frame h1,.app-frame h2,.app-frame h3,.app-frame .overview-grid strong,.app-frame .side-brand{text-transform:uppercase}
 .app-frame .sidebar>button,.app-frame .overview-grid b,.app-frame .canvas-toolbar button,.app-frame .child-boards>small,.app-frame .inspector>header small,.app-frame .main-area>header>div:last-child button,.app-frame .inspector .wide,.app-frame .danger{text-transform:uppercase}
 @media(max-width:760px){.section-row{grid-template-columns:22px minmax(0,1fr) 26px 26px}.section-row>button:nth-last-child(-n+2){grid-column:auto}.sidebar-tools{padding:7px 2px}.sidebar-tools button{font-size:0;text-align:center}.sidebar-tools button::first-letter{font-size:9px}}
+
+.file-import{display:inline-flex;align-items:center;position:relative;overflow:hidden;background:none;border:1px solid #3a424d;color:#bfc7d0;border-radius:6px;padding:8px 10px;font-size:10px;cursor:pointer}
+.file-import input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%}
+.secondary-action{background:transparent;border:1px solid #48515c;color:inherit;border-radius:6px;padding:10px}
+.archive-modal{width:min(620px,100%)}
+.archive-list{display:grid;gap:7px;max-height:55vh;overflow:auto}
+.archive-list>div{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px;background:#171c23;border:1px solid #343c47;border-radius:7px}
+.archive-list span{display:grid;gap:4px;min-width:0}
+.archive-list b{font-size:11px;overflow-wrap:anywhere}
+.archive-list small{font-size:9px;color:#929ba7}
+.archive-list button{border:1px solid #526640;background:#293521;color:#d9edc0;border-radius:5px;padding:8px;font-size:9px;white-space:nowrap}
+.app-frame[data-theme="light"] .file-import{border-color:#cbd2c8;color:#3e483c}
+.app-frame[data-theme="light"] .archive-list>div{background:#fff;border-color:#d5dbd2}
+.app-frame[data-theme="light"] .archive-list b{color:#283126}
+.app-frame[data-theme="light"] .archive-list small{color:#65715f}
+.app-frame[data-theme="light"] .archive-list button{background:#e0e9d5;color:#3c5629;border-color:#a8bc92}
+@media(max-width:760px){.file-import{font-size:0;padding:8px}.file-import::before{content:'ИМПОРТ';font-size:9px}.archive-list>div{align-items:flex-start;flex-direction:column}}
