@@ -67,3 +67,27 @@ export interface BoardNode {
   height?: number
   displayConfig: Record<string, unknown>
 }
+
+export const RELATION_TYPES = [
+  'part_of',
+  'manages',
+  'develops',
+  'collaborates_with',
+  'participates_in',
+  'inspired_by',
+  'depends_on',
+  'related_to',
+] as const
+
+export type RelationType = (typeof RELATION_TYPES)[number]
+
+export const RELATION_TYPE_LABELS: Record<RelationType, string> = {
+  part_of: 'Является частью',
+  manages: 'Управляет',
+  develops: 'Развивает',
+  collaborates_with: 'Сотрудничает с',
+  participates_in: 'Участвует в',
+  inspired_by: 'Вдохновлено',
+  depends_on: 'Зависит от',
+  related_to: 'Связано с',
+}
